@@ -5,7 +5,6 @@ module.exports = function (RED) {
         var node = this;
         this.on('input', function (msg) {
             msg[node.target] = Number(msg[node.target]) + 1;
-            
             node.send(msg);
         });
     }
