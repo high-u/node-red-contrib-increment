@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-increment",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "node-red": {
     "nodes": {
       "increment": "increment.js"
@@ -16,8 +16,9 @@
     "url": "git+https://github.com/high-u/node-red-contrib-increment.git"
   },
   "keywords": [
-    "Node-RED",
-    "increment"
+    "node-red",
+    "increment",
+    "loop"
   ],
   "author": "high-u",
   "license": "Apache-2.0",
