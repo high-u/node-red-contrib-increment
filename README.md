@@ -4,6 +4,7 @@
 
 |Date|Version|Description|
 |:--:|:-----:|:----------|
+|2017-09-24|0.0.6|Update node icon.|
 |2017-09-19|0.0.5|Released|
 
 ## Feature
