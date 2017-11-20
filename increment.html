@@ -1,16 +1,36 @@
 <script type='text/javascript'>
     RED.nodes.registerType('increment', {
-        category: 'advanced',
+        category: 'function',
         color: '#4DB6AC',
         defaults: {
             name: { value: '' },
+            kind: { value: 'msg' },
             target: { value: 'payload' }
         },
         inputs: 1,
         outputs: 1,
         icon: 'increment.png',
         label: function () {
-            return this.name || "msg." + this.target + "++";
+            if (!this.kind) this.kind = this._def.defaults.kind.value;
+            return this.name || this.kind + '.' + this.target + "++";
+        },
+        oneditprepare: function onEditPrepare() {
+          var propertyName = $('<input/>', {
+            id: 'node-typed-input-target',
+            type: 'text',
+            style: 'margin-left: 5px;'
+          })
+          .appendTo('#node-input-target-container')
+          .typedInput({
+            types: ['msg','flow','global']
+          });
+
+          propertyName.typedInput('type', this.kind);
+          propertyName.typedInput('value', this.target);
+        },
+        oneditsave: function onEditSave() {
+          $('#node-input-kind').val($('#node-typed-input-target').typedInput('type'));
+          $('#node-input-target').val($('#node-typed-input-target').typedInput('value'));
         }
     });
 </script>
@@ -19,9 +39,10 @@
         <label for='node-input-name'><i class='fa fa-tag'></i>Name</label>
         <input type='text' id='node-input-name' placeholder='Name'>
     </div>
-    <div class="form-row">
-        <label for="node-input-target"><i class="fa fa-tag"></i>Target</label> msg.
-        <input type="text" id="node-input-target" placeholder='payload'>
+    <div class="form-row" id="node-input-target-container">
+        <label for="node-input-target"><i class="fa fa-tag"></i>Target</label>
+        <input type="hidden" id="node-input-kind">
+        <input type="hidden" id="node-input-target">
     </div>
 </script>
 <script type='text/x-red' data-help-name='increment'>
