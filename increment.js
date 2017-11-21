@@ -5,29 +5,29 @@ module.exports = function (RED) {
           || val === '';
     }
 
-    function increment(val, factor) {
-      if (isEmpty(factor)) {
-          factor = 1;
+    function incrementVal(val, increment) {
+      if (isEmpty(increment)) {
+          increment = 1;
       }
-      factor = Number(factor);
-      if (isEmpty(val)) return factor;
-      return Number(val) + factor;
+      increment = Number(increment);
+      if (isEmpty(val)) return increment;
+      return Number(val) + increment;
     }
     function incNode(config) {
         RED.nodes.createNode(this, config);
         this.kind = config.kind;
         this.target = config.target;
-        this.factor = config.factor;
+        this.increment = config.increment;
         var node = this;
         this.on('input', function (msg) {
             if (!this.kind || this.kind === 'msg') {
-              msg[node.target] = increment(msg[node.target], node.factor);
+              msg[node.target] = incrementVal(msg[node.target], node.increment);
               console.log(' msg[node.target]', msg[node.target], node)
 
             } else if (this.kind === 'flow') {
-              node.context().flow.set(node.target, increment(node.context().flow.get(node.target), node.factor));
+              node.context().flow.set(node.target, incrementVal(node.context().flow.get(node.target), node.increment));
             } else if (this.kind === 'global') {
-              node.context().global.set(node.target, increment(node.context().global.get(node.target), node.factor));
+              node.context().global.set(node.target, incrementVal(node.context().global.get(node.target), node.increment));
             }
             node.send(msg);
         });
