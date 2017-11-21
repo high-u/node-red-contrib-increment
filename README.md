@@ -9,8 +9,9 @@
 
 ## Feature
 
-* Can only increment.
-* Increment any property of message object.
+* Can increment by any number/factor
+* Can increment and decrement (by setting negative factor)
+* Increment any property of message/flow/global object
 
 ## Install
 
